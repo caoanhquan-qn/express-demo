@@ -1,0 +1,21 @@
+{
+  "name": "study-javascript",
+  "version": "1.0.0",
+  "description": "Study JS",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "Quan Cao",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "mongoose": "^6.0.13",
+    "underscore": "^1.13.1"
+  }
+}
