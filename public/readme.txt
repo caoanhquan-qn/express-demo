@@ -1,0 +1,1 @@
+This is readme file for testing node static middleware

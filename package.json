@@ -1,10 +1,11 @@
 {
-  "name": "study-javascript",
+  "name": "express-demo",
   "version": "1.0.0",
-  "description": "Study JS",
-  "main": "app.js",
+  "description": "Express demo",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "author": "Quan Cao",
   "license": "ISC",
@@ -12,10 +13,13 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "config": "^3.3.6",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
     "joi": "^17.4.2",
     "mongoose": "^6.0.13",
-    "underscore": "^1.13.1"
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
   }
 }
