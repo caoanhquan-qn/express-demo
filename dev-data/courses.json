@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Node JS The Complete Guide",
+    "duration": 35,
+    "author": "Mosh",
+    "tags": ["basic", "intermediate"],
+    "isPublished": true
+  },
+  {
+    "name": "Typescript The Complete Guide",
+    "duration": 25,
+    "author": "Maximilian",
+    "tags": ["intermediate", "advanced"],
+    "isPublished": true
+  },
+  {
+    "name": "Microservices The Complete Guide",
+    "duration": 55,
+    "author": "Stephen",
+    "tags": ["advanced"],
+    "isPublished": true
+  }
+]

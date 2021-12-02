@@ -1,63 +1,52 @@
-const Joi = require('joi');
-let courses = require('../dev-data/courses');
+const Course = require('../models/courseModel');
+
 // HTTP verb requests
-exports.getAllCourses = (req, res) => {
+exports.getAllCourses = async (req, res) => {
+  const courses = await Course.find();
   res.status(200).send(courses);
 };
 
-exports.getCourse = (req, res) => {
-  const courseId = Number(req.params.id);
-  const course = courses.find((course) => course.id === courseId);
+exports.getCourse = async (req, res) => {
+  const course = await Course.findById(req.params.id);
   if (!course)
     return res.status(404).send('The course with given ID was not found');
 
   res.status(200).send(course);
 };
 exports.createCourse = async (req, res) => {
-  const schema = Joi.object({
-    id: Joi.number(),
-    name: Joi.string().min(3).required(),
-    duration: Joi.number(),
-  });
-
-  const course = {
-    id: courses.length + 1,
-    name: req.body.name,
-    duration: req.body.duration,
+  const { name, author, duration, price, tags, isPublished } = req.body;
+  const createdCourse = {
+    name,
+    author,
+    duration,
+    price,
+    tags,
+    isPublished,
   };
   try {
-    const value = await schema.validateAsync(course);
-    courses.push(value);
-    res.status(201).send(value);
+    const course = new Course(createdCourse);
+    const newCourse = await course.save();
+    res.status(201).send(newCourse);
   } catch (err) {
     res.status(400).send(err.message);
   }
 };
-exports.updateCourse = (req, res) => {
-  const courseId = Number(req.params.id);
-  const updatedCourse = courses.find((course) => course.id === courseId);
+exports.updateCourse = async (req, res) => {
+  const updatedCourse = await Course.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true, runValidators: true }
+  );
   if (!updatedCourse) {
     return res.status(404).send('The course with given ID was not found');
   }
-  const schema = Joi.object({
-    name: Joi.string().min(3).required(),
-    duration: Joi.number().required(),
-  });
-  const { error } = schema.validate(req.body);
-  if (error) {
-    return res.status(400).send(error.message);
-  }
-  updatedCourse.name = req.body.name;
-  updatedCourse.duration = req.body.duration;
   res.status(200).send(updatedCourse);
 };
 
-exports.deleteCourse = (req, res) => {
-  const courseId = Number(req.params.id);
-  const course = courses.find((course) => course.id === courseId);
-  if (!course) {
+exports.deleteCourse = async (req, res) => {
+  const deletedCourse = await Course.findByIdAndDelete(req.params.id);
+  if (!deletedCourse) {
     return res.status(404).send('The course with given ID was not found');
   }
-  courses = courses.filter((course) => course.id !== courseId);
   res.status(204).json({ status: 'success', data: null });
 };
