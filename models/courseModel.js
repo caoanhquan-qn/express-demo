@@ -15,9 +15,18 @@ const courseSchema = new Schema({
   },
   price: {
     type: Number,
+    // this only works on create and save
+    required: function () {
+      return this.isPublished;
+    },
   },
   tags: {
     type: [String],
+    validate: {
+      validator: function (val) {
+        return val && val.length > 0;
+      },
+    },
   },
   date: {
     type: Date,
