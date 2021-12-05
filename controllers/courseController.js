@@ -19,10 +19,10 @@ exports.createCourse = async (req, res) => {
     const schema = Joi.object({
       name: Joi.string().min(3).required(),
       author: Joi.string().required(),
-      duration: Joi.number(),
       price: Joi.number(),
       tags: Joi.array().min(1),
       isPublished: Joi.boolean(),
+      date: Joi.date(),
     });
     const { error } = schema.validate(req.body);
     if (error) {
@@ -41,6 +41,18 @@ exports.updateCourse = async (req, res) => {
     return res.status(404).send('The course with given ID was not found');
   }
   try {
+    const schema = Joi.object({
+      name: Joi.string().min(3),
+      author: Joi.string(),
+      price: Joi.number(),
+      tags: Joi.array().min(1),
+      isPublished: Joi.boolean(),
+      date: Joi.date(),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) {
+      throw error;
+    }
     course.set(req.body);
     const updateCourse = await course.save();
     res.status(200).send(updateCourse);

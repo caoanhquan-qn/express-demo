@@ -6,12 +6,11 @@ const courseSchema = new Schema({
     required: true,
     minlength: 3,
   },
+  // referencing a document
   author: {
-    type: String,
-    required: true,
-  },
-  duration: {
-    type: Number,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Author',
+    required: [true, 'A course must belong to at least an author'],
   },
   price: {
     type: Number,
@@ -33,6 +32,13 @@ const courseSchema = new Schema({
     default: Date.now(),
   },
   isPublished: Boolean,
+});
+
+courseSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'author',
+  });
+  next();
 });
 
 const Course = mongoose.model('Course', courseSchema);
