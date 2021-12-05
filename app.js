@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const login = require('./controllers/loginController');
 const auth = require('./controllers/authController');
 const courseRouter = require('./routes/courseRoutes');
+const authorRouter = require('./routes/authorRoutes');
 const homeRouter = require('./routes/homeRoute');
 const app = express();
 
@@ -28,5 +29,6 @@ app.use(auth);
 
 app.use('/', homeRouter);
 app.use('/api/courses', courseRouter);
+app.use('/api/authors', authorRouter);
 
 module.exports = app;

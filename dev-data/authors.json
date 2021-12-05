@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Mosh",
+    "bio": "Mosh's bio",
+    "website": "https://au.linkedin.com/in/mosh-hamedani"
+  },
+  {
+    "name": "Maximilian",
+    "bio": "Maximilian's bio",
+    "website": "https://www.linkedin.com/in/maximilian-schwarzmueller/"
+  },
+  {
+    "name": "Jack",
+    "bio": "Jack's bio",
+    "website": "https://www.crunchbase.com/person/jack-dorsey"
+  },
+  {
+    "name": "Mary",
+    "bio": "Mary's bio",
+    "website": "https://www.crunchbase.com/person/mary-gonzales"
+  },
+  {
+    "name": "David",
+    "bio": "David's bio",
+    "website": "https://www.linkedin.com/in/cuongphan1990/"
+  }
+]

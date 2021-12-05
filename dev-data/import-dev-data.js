@@ -1,7 +1,8 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const Course = require('../models/courseModel');
+// const Course = require('../models/courseModel');
+const Author = require('../models/authorModel');
 
 dotenv.config({ path: './config.env' });
 
@@ -12,14 +13,15 @@ mongoose
   .catch((err) => console.log(err.message));
 
 // READ FILE
-const courses = JSON.parse(
-  fs.readFileSync(`${__dirname}/exercise-data.json`, 'utf-8')
+const authors = JSON.parse(
+  // fs.readFileSync(`${__dirname}/exercise-data.json`, 'utf-8')
+  fs.readFileSync(`${__dirname}/authors.json`, 'utf-8')
 );
 
 // IMPORT DATA INTO DATABASE
 const importData = async () => {
   try {
-    await Course.create(courses);
+    await Author.create(authors);
     console.log('Import data into DB successfully');
   } catch (error) {
     console.log(error.message);
@@ -30,7 +32,7 @@ const importData = async () => {
 // DELETE ALL DATA FROM DB
 const deleteData = async () => {
   try {
-    await Course.deleteMany();
+    await Author.deleteMany();
     console.log('Delete all data in DB successfully');
   } catch (error) {
     console.log(error.message);

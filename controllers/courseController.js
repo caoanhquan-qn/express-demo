@@ -1,4 +1,5 @@
 const Course = require('../models/courseModel');
+const Joi = require('joi');
 
 // HTTP verb requests
 exports.getAllCourses = async (req, res) => {
@@ -14,17 +15,20 @@ exports.getCourse = async (req, res) => {
   res.status(200).send(course);
 };
 exports.createCourse = async (req, res) => {
-  const { name, author, duration, price, tags, isPublished } = req.body;
-  const createdCourse = {
-    name,
-    author,
-    duration,
-    price,
-    tags,
-    isPublished,
-  };
   try {
-    const course = new Course(createdCourse);
+    const schema = Joi.object({
+      name: Joi.string().min(3).required(),
+      author: Joi.string().required(),
+      duration: Joi.number(),
+      price: Joi.number(),
+      tags: Joi.array().min(1),
+      isPublished: Joi.boolean(),
+    });
+    const { error } = schema.validate(req.body);
+    if (error) {
+      throw error;
+    }
+    const course = new Course(req.body);
     const newCourse = await course.save();
     res.status(201).send(newCourse);
   } catch (err) {
